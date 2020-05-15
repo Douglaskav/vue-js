@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Vue Js</title>
+</head>
+
+<!--
+  Utilizando a API
+  https://cloud.iexapis.com/stable/stock/aapl/quote?token=TOKENAQUI
+  Não se esqueça de se cadastrar em: https://iexcloud.io/ para gerar o seu token:
+
+  Crie um método que faça o fetch da resposta acima
+  O método deve ser ativado ao clique no botão Ver Preço
+
+  Coloque a resposta json do fetch em uma data e
+  mostre o valor de lalestPrice, latestTime e o
+  companyName na interface.
+-->
+
+
+<body>
+  <div id="app">
+    {{latestPrice}}, {{latestTime}} - {{companyName}}
+    <button @click="fetchDados">Buscar dados</button>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        latestPrice: 0.0,
+        latestTime: 0,
+        companyName: '',
+      },
+
+      methods: {
+        async pullActions() {
+          const dadosResponse = await fetch('https://cloud.iexapis.com/stable/stock/aapl/quote?token=TOKEN');
+          const dadosJSON = await dadosResponse.json();
+
+          this.latestPrice = dadosJSON.latestPrice;
+          this.latestTime = dadosJSON.latestTime;
+          this.companyName = dadosJSON.companyName;
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>
