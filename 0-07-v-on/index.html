@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Vue Js</title>
+  <style>
+  </style>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li><a @click.prevent="pullCompany" href="https://cloud.iexapis.com/stable/stock/aapl/quote?token=TOKEN ">Apple</a></li>
+      <li><a @click.prevent="pullCompany" href="https://cloud.iexapis.com/stable/stock/googl/quote?token=TOKEN ">Google</a></li>
+      <li><a @click.prevent="pullCompany" href="https://cloud.iexapis.com/stable/stock/amzn/quote?token=TOKEN ">Amazon</a></li>
+      <li><a @click.prevent="pullCompany" href="https://cloud.iexapis.com/stable/stock/ebay/quote?token=TOKEN ">Ebay</a></li>
+      <li><a @click.prevent="pullCompany" href="https://cloud.iexapis.com/stable/stock/pypl/quote?token=TOKEN ">Paypal</a></li>
+    </ul>
+
+    <div>
+      <p>{{companyName}}</p>
+      <p>{{latestPrice}}</p>
+      <p>{{marketCap}}</p>
+    </div>
+  </div>
+  <!--
+    Utilizando API
+    https://api.iextrading.com/1.0/stock/aapl/quote
+  
+    Adicione um evento de clique a cada <a> do html
+    acima e previna o comportamento padrão.
+  
+    Faça o fetch dos dados do href ao click e mostre na
+    interface o companyName, latestPrice, marketCap
+  -->
+
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        companyName: '',
+        latestPrice: 0.0,
+        marketCap: 0.0,
+      },
+      methods: {
+        async pullCompany(event) {
+          const companyResponse = await fetch(event.target.href);
+          const companyJSON = await companyResponse.json();
+
+          this.companyName = companyJSON.companyName;
+          this.latestPrice = companyJSON.latestPrice;
+          this.marketCap = companyJSON.marketCap;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
