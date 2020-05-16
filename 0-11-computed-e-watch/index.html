@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../vue.js"></script>
+  <title>Vue Js</title>
+</head>
+
+<body>
+  <!--
+  Você possui o nome e sobrenome do usuário em data,
+  crie uma propriedade computed que retorne o nome completo
+  
+  Utilize a rest API para puxar as capitais dos paises
+  Use um campo de select, onde o usuário pode selecionar o país.
+  https://restcountries.eu/rest/v2/all
+
+  Com uma função watch, mude a capital de acordo com o país selecionado:
+
+  Ex de campo select:
+
+  <select name="paises" id="paises" v-model="selecionado">
+    <option v-for="pais in paises" :value="pais.name">
+      {{pais.name}}
+    </option>
+  </select>
+-->
+
+  <div id="app">
+    {{nomecompleto}}
+    <button @click="popSelect">Go</button>
+
+    <select name="paises" id="paises" v-model="selecionado">
+      <option v-for="pais in paises" :value="pais.capital">
+        {{pais.name}}
+      </option>
+    </select>
+
+    <p>Captal: <b>{{selecionado}}</b></p>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        nome: "Douglas",
+        sobrenome: "Nicolas",
+        paises: [],
+        selecionado: '',
+      },
+
+      methods: {
+        async popSelect() {
+          const response = await fetch('https://restcountries.eu/rest/v2/all');
+          const json = await response.json();
+
+          console.log(json);
+          this.paises = json;
+        }
+      },
+
+      computed: {
+        nomecompleto() {
+          return `${this.nome} ${this.sobrenome}`;
+        },        
+      },
+
+      watch: {
+        async selecionado(valor) {
+          this.selecionado = valor;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
