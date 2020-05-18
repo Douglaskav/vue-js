@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJS</title>
+  <script src="../../vue.js"></script>
+</head>
+<body>
+  <!-- 
+  1 - Crie um criador de botões.
+
+  O usuário poderá definir:
+  width,
+  height,
+  font-size,
+  font-family,
+  text-align,
+  background,
+  color,
+  border-radius,
+
+  As escolhas serão feitas em campos de
+  formulário. Cada escolha deverá ser 
+  refletida em um elemento (o botão).
+
+
+  2 - Crie um formulário com, nome, email, telefone e mensagem.
+  Ao clicar em enviar, as informações preenchidas no formulário
+  devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+ -->
+
+  <div id="app">
+    <div>
+      <input type="text" min="10" max="400" v-model="estiloButton.width" placeholder="Width"><br>
+      <input type="text" min="10" max="400" v-model="estiloButton.height" placeholder="Height"><br>
+      <select name="fontSize" v-model="estiloButton.fontSize">
+        <option value="" disabled selected>Escolha o tamanho da fonte</option>
+        <option value="14px">14px</option>
+        <option value="18px">18px</option>
+        <option value="22px">22px</option>
+        <option value="36px">36px</option>
+        <option value="48px">48px</option>
+      </select><br>
+      <select name="fontFamily" v-model="estiloButton.fontFamily">
+        <option value="" disabled selected>Escolha a fonte</option>
+        <option value="Georgia">Georgia</option>
+        <option value="IBM Plex Mono">IBM Plex Mono</option>
+        <option value="Raleway">Raleway</option>
+        <option value="sans-serif">Sans Serif</option>
+        <option value="serif">Serif</option>
+      </select>
+
+      <div>
+        <input type="radio" name="align" value="left" v-model="estiloButton.textAlign">Left
+        <input type="radio" name="align" value="center" v-model="estiloButton.textAlign">Center
+        <input type="radio" name="align" value="Right" v-model="estiloButton.textAlign">Right
+      </div>
+
+      <input type="color" name="background" v-model="estiloButton.background"><br>
+      <input type="text" name="borderRadius" v-model="estiloButton.borderRadius" placeholder="Border Radius"><br>
+      <input type="color" name="color" v-model="estiloButton.color">
+      <input type="text" name="border" v-model="estiloButton.border">
+    </div>
+    <hr>
+    <button :style="estiloButton">Botão</button>
+
+    <hr>
+
+    <form action="">
+      <input type="name" placeholder="Nome" v-model="nome"><br>
+      <input type="email" placeholder="Email" v-model="email"><br>
+      <input type="number" placeholder="Telefone" v-model="telefone"><br>
+      <textarea name="mensagem" v-model="mensagem"></textarea>
+
+      <button @click.prevent="showData">Enviar</button>
+
+      <div v-if="show">
+        <p>Nome: {{nome}}</p>
+        <p>Email: {{email}}</p>
+        <p>Email: {{telefone}}</p>
+        <p>Email: {{mensagem}}</p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        estiloButton: {
+        width: '',
+        height: '',
+        fontSize: '',
+        fontFamily: '',
+        textAlign: '',
+        background: '',
+        borderRadius: '',
+        color: '',
+        border: 'none'
+        },
+
+        nome: '',
+        email: '',
+        telefone: 0,
+        mensagem: '',
+        show: false
+      },
+
+      // computed: {
+      //   estiloButton() {
+      //     return {
+      //       width: this.width+'px',
+      //       height: this.height+'px',
+      //       fontSize: this.fontSize+'px',
+      //       fontFamily: this.fontFamily,
+      //       textAlign: this.textAlign,
+      //       background: this.background,
+      //       borderRadius: this.borderRadius+'px',
+      //       color: this.color
+      //     }
+      //   }
+      // },
+
+      methods: {
+        showData() {
+          this.show = true;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
