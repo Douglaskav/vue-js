@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../vue.js"></script> 
+  <title>Vue Js</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>{{cep}}</h1>
+    <input type="text" placeholder="CEP" maxlength="8" v-model="cep">
+
+    <ul>
+      <li v-for="(dado, key) in endereco">{{key}}: {{dado}}</li>
+    </ul>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        endereco: '',
+        cep: 0
+      },
+
+      watch: {
+        async cep(valor) {
+          if(valor.length === 8) {
+          const response = await fetch(`https://viacep.com.br/ws/${valor}/json/`);
+          const json = await response.json();
+
+          this.endereco = json;
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

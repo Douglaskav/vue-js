@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJS</title>
+  <script src="../../vue.js"></script>
+  <style>
+    .azul {
+      color: blue;
+    }
+
+    .verde {
+      color: green;
+    }
+
+    .vermelho {
+      background: red;
+    }
+
+    .ativo {
+      background: gray;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p :class="[cor, {ativo: estaAtivo}]">Esse paragrafo é azul</p>
+    <p :class="{ativo: estaAtivo, verde: elverde}">Mostrar Texto</p>
+    <button @click="estaAtivo = !estaAtivo">Toggle</button>
+
+    <a href="#" :style="estiloBotao">Qualquer coisa</a>
+    <button @click="estiloBotao.tamanho++">Aumentar</button>
+
+    <p :style="estilizaParagrafo">Novo Texto</p>
+    {{estilizaParagrafo}}
+  </div>
+
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        cor: "verde",
+        background: "vermelho",
+        estaAtivo: false,
+        elverde: false,
+
+        estiloBotao: {
+          background: "#aa0231",
+          fontSize: 14,
+          padding: "10px 20px",
+          borderRadius: "5px",
+          color: "#FFF",
+          textDecoration: "none",
+          letterSpacing: "1px",
+          textTransform: "uppercase"
+        }
+      },
+
+      computed: {
+        estilizaParagrafo() {
+          const tamanho = Math.random() * 100;
+          return {
+            fontSize: tamanho+'px'
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

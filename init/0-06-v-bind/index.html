@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../vue.js"></script> 
+  <title>Vue Js</title>
+  <style>
+    .verde { color: greenyellow; }
+
+    .vermelho { color: red }
+  </style>
+</head>
+<body>
+  <!--
+  Utilizando as API's
+  https://cloud.iexapis.com/stable/stock/aapl/quote?token=TOKEN
+  https://cloud.iexapis.com/stable/stock/googl/quote?token=TOKEN
+   
+
+  - Compare o marketCap (valor de
+  mercado) entre ambas.
+
+  - Mostre o nome das empresas e o valor
+  na interace (companyName e marketCap).
+
+  - Mude a cor para verde o nome da empresa com
+  maior marketCap e vermelho a com menor.
+-->
+
+  <div id="app">
+    <button @click="fetchCompanys">Compare</button>
+    <h4>Company Name: {{E1companyName}}</h4>
+    <p :class="E1marketCap > E2marketCap ? 'verde' : 'vermelho'">Market Cap: {{E1marketCap}}</p>
+
+    <hr>
+
+    <h4>Company Name: {{E2companyName}}</h4>
+    <p :class="E1marketCap < E2marketCap ? 'verde' : 'vermelho'">Market Cap: {{E2marketCap}}</p>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        E1marketCap: 0.0,
+        E1companyName: '',
+
+        E2marketCap: 0.0,
+        E2companyName: '',
+      },
+
+      methods: {
+        async fetchCompanys() {
+          const e1Response = await fetch('https://cloud.iexapis.com/stable/stock/googl/quote?token=TOKEN');
+          const e1Company = await e1Response.json();
+
+          this.E1marketCap = e1Company.marketCap;
+          this.E1companyName = e1Company.companyName;
+
+
+          const e2Response = await fetch('https://cloud.iexapis.com/stable/stock/amzn/quote?token=TOKEN');
+          const e2Company = await e2Response.json();
+
+          this.E2marketCap = e2Company.marketCap;
+          this.E2companyName = e2Company.companyName;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
