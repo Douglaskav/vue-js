@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJS</title>
+  <script src="../../../vue.js"></script>
+</head>
+<body>
+
+  <div id="app">
+    <componente-local></componente-local>
+  </div>
+
+  <script>
+    Vue.component('componente-global', {
+      template: `<p>Isso é Global</p>`
+    });
+
+    const ComponenteLocal = {
+      name: "ComponenteLocal",
+      data() {
+        return {
+          contar: 1950
+        }
+      },
+      template: `
+      <div>
+        <p>Isso é um Local</p>
+        <button @click="somarDobro">Componente Local {{contar}}</button>
+        <componente-local2></componente-local2>
+      </div>`,
+
+      methods: {
+        somarDobro() {
+          this.contar *= 2;
+        }
+      }
+    }
+
+    const ComponenteLocal2 = {
+      name: "ComponenteLocal2",
+      template: `<button>Componente Local</button>`
+    }
+
+    Vue.component('ComponenteLocal2', ComponenteLocal2);
+
+    const vm = new Vue({
+      el: '#app',
+      components: {
+        ComponenteLocal,
+        ComponenteLocal2
+      }
+    });
+  </script>
+</body>
+</html>
