@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJS</title>
+  <script src="../../vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <p @click="total++">{{total}}</p>
+    <botao-contador :valor="total"></botao-contador>
+  </div>
+
+  <script>
+    const BotaoContador = {
+      name: "BotaoContador",
+      props: {
+        valor: {
+          type: Number
+        }
+      },
+      
+      template: `<button @click="valol++">Esse é o total {{valor}}</button>`
+    }
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        total: 0
+      },
+      components: {
+        BotaoContador
+      }
+    })
+  </script>
+</body>
+
+</html>
