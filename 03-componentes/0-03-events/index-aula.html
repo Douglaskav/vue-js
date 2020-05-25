@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VueJS</title>
+  <script src="../../vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{contador}}
+    <meu-botao 
+      :contador.sync="contador"
+      // @update:contador="contador = $event"
+    />
+  </div>
+
+  <script>
+    const MeuBotao = {
+      name: "MeuBotao",
+      props: ['contador'],
+      data() {
+        return {
+          contadorComponente: this.contador
+        }
+      },
+      template: `<button @click="incrementar">Clique {{contadorComponente}}</button>`,
+      methods: {
+        incrementar() {
+          this.contadorComponente++;
+          this.$emit("update:contador", this.contadorComponente);
+        }
+      }
+    }
+
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        contador: 0
+      },
+
+      components: {
+        MeuBotao
+      }
+    })
+
+  </script>
+</body>
+
+</html>
