@@ -1,16 +1,15 @@
 <template>
   <div>
-    <h1>Nossos Cursos:</h1>
-    <router-link :to="{name: 'cursos', params: { curso: 'HTML' }}">HTML</router-link>
-    <router-link to="/cursos/JavaScript">JavaScript</router-link>
-    <router-link to="/cursos/React">React</router-link>
+    <h1>Essa é a página do curso de {{curso}}.</h1>
+    <router-link :to="{name: 'aulas'}">Aulas</router-link>
+    <router-link :to="{name: 'descricao'}">Descrição</router-link>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Cursos",
+  name: "Curso",
   props: ["curso"],
   created() {
     console.log("Esse componente foi criado.");
