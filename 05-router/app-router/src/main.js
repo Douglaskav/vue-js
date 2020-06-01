@@ -4,6 +4,12 @@ import router from './Router';
 
 Vue.config.productionTip = false;
 
+// router.beforeEach((to, from, next) => {
+//   console.log("to: ", to);
+//   console.log("from: ", from);
+//   next();
+// })
+
 new Vue({
   router,
   render: h => h(App),

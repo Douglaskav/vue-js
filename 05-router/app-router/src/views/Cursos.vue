@@ -12,12 +12,7 @@
 export default {
   name: "Cursos",
   props: ["curso"],
-  created() {
-    console.log("Esse componente foi criado.");
-  },
-  beforeRouteUpdate(to, from, next) {
-    next();
-  }
+  
 };
 </script>
 

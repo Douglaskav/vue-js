@@ -12,6 +12,7 @@ Vue.use(Router);
 export default new Router({
   mode: "history",
   base: process.env.BASE_URL,
+
   routes: [
     {
       path: "/",
@@ -20,12 +21,17 @@ export default new Router({
     {
       path: "/cursos",
       component: Cursos,
+      // beforeEnter: (to, from, next) => {
+      //   console.log('Foi para cursos');
+      //   next();
+      // },
       children: [
         {
           name: "cursos",
           path: ":curso",
           component: Curso,
           props: true,
+
           children: [
             {
               name: "aulas",
