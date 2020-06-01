@@ -3,7 +3,9 @@
     <h1>Essa é a página do curso de {{curso}}.</h1>
     <router-link :to="{name: 'aulas'}">Aulas</router-link>
     <router-link :to="{name: 'descricao'}">Descrição</router-link>
-    <router-view></router-view>
+    <transition mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -32,4 +34,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.topDown-enter,
+.topDown-leave-to {
+  transform: translate3d(0, -40px, 0) scale(0.2);
+  opacity: 0;
+}
+
+.topDown-enter-active,
+.topDown-leave-active {
+  transform: all 3s;
+}
+</style>
