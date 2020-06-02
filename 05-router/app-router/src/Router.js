@@ -6,6 +6,8 @@ import Cursos from './views/Cursos';
 import Curso from './views/Curso';
 import CursoAulas from './views/CursoAulas';
 import CursoDescricao from './views/CursoDescricao';
+import Acoes from './views/Acoes';
+import AcoesDados from './views/AcoesDados';
 
 Vue.use(Router);
 
@@ -17,6 +19,18 @@ export default new Router({
     {
       path: "/",
       component: Home
+    },
+    {
+      path: "/acoes",
+      component: Acoes,
+      children: [
+        {
+          name: "AcoesDados",
+          path: ":simbolo",
+          component: AcoesDados,
+          props: true
+        }
+      ]
     },
     {
       path: "/cursos",
