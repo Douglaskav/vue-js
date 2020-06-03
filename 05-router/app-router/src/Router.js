@@ -2,10 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Home from './views/Home';
-import Cursos from './views/Cursos';
-import Curso from './views/Curso';
-import CursoAulas from './views/CursoAulas';
-import CursoDescricao from './views/CursoDescricao';
+const Cursos = () => import('./views/Cursos');
+const Curso = () => import(/* webpackChunkName: "curso" */ './views/Curso');
+const CursoAulas = () => import(/* webpackChunkName: "curso" */ './views/CursoAulas');
+const CursoDescricao = () => import(/* webpackChunkName: "curso" */ './views/CursoDescricao');
 import Acoes from './views/Acoes';
 import AcoesDados from './views/AcoesDados';
 
@@ -18,11 +18,21 @@ export default new Router({
   routes: [
     {
       path: "/",
-      component: Home
+      components: {
+        default: Home,
+        sidebar: Acoes
+      }
+    },
+    {
+      path: "*",
+      redirect: "/"
     },
     {
       path: "/acoes",
-      component: Acoes,
+      components: {
+        default: Acoes,
+        sidebar: Home
+      },
       children: [
         {
           name: "AcoesDados",
@@ -62,5 +72,5 @@ export default new Router({
         }
       ]
     },
-  ]
+  ],
 });
