@@ -1,14 +1,26 @@
 <template>
   <div id="app">
+    <ul>
+      <li v-for="livro in $store.state.livros" :key="livro.nome">
+        <p>{{livro.nome}}</p>
+      </li>
+    </ul>
+    <ul>
+      <h2>Livros lidos</h2>
+      <li v-for="livro in livrosLidos(true)" :key="livro.nome">
+        <p>{{livro.nome}}</p>
+      </li>
+    </ul>
+    {{$store.state.github.github}}
     <Aluno />
     <Curso />
-    {{$store.state.github}}
   </div>
 </template>
 
 <script>
 import Aluno from "./components/Aluno";
 import Curso from "./components/Curso";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -16,8 +28,13 @@ export default {
     Aluno,
     Curso
   },
+
+  computed: {
+    ...mapGetters(["livrosLidos"])
+  },
+
   created() {
-    this.$store.dispatch("puxarGithub");
+    this.$store.dispatch("github/puxarGithub");
   }
 };
 </script>

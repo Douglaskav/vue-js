@@ -1,33 +1,47 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import github from '@/store/github.js';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     cursosConcluidos: [],
-    github: null
+    livros: [
+      {
+        nome: "O Senhor dos Anéis",
+        lido: true,
+      },
+      {
+        nome: "Harry Potter",
+        lido: true,
+      },
+      {
+        nome: "As Crônicas de Gelo e Fogo",
+        lido: false,
+      }
+    ]
   },
   mutations: {
     CONCLUIR_CURSO(state, payload) {
       state.cursosConcluidos.push(payload);
     },
 
-    UPDATE_GITHUB(state, payload) {
-      state.github = payload;
-    }
+
   },
   actions: {
     concluirCurso(context, payload) {
       context.commit("CONCLUIR_CURSO", payload);
     },
-    async puxarGithub(context) {
-      const response = await fetch('https://api.github.com/users/Douglaskav');
-      const json = await response.json();
 
-      context.commit("UPDATE_GITHUB", json);
-    }
   },
+
+  getters: {
+    livrosLidos: state => lido =>
+      state.livros.filter(livro => livro.lido === lido)
+  },
+
   modules: {
+    github
   }
 })
