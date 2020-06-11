@@ -1,17 +1,17 @@
 <template>
   <ul>
-    <li v-for="(curso, index) in cursos" :key="curso.index">
+    <li v-for="(curso, index) in cursos" :key="index">
       <p>
         <b>{{curso.nome}}</b>
         | {{curso.duracao}} horas
       </p>
-      <button @click="concluirCurso(index)">Concluir</button>
+      <button @click="concluirCurso(curso)">Concluir</button>
     </li>
   </ul>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "aulas",
@@ -32,13 +32,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["CONCLUIR_CURSO"]),
-    concluirCurso(id) {
-      this.cursosConcluidos.push(this.cursos[id]);
-      this.CONCLUIR_CURSO({
-        curso: this.cursosConcluidos
-      });
-    }
+    ...mapActions(["concluirCurso"])
   }
 };
 </script>

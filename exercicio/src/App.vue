@@ -2,6 +2,7 @@
   <div id="app">
     <Aluno />
     <Curso />
+    {{$store.state.github}}
   </div>
 </template>
 
@@ -14,6 +15,9 @@ export default {
   components: {
     Aluno,
     Curso
+  },
+  created() {
+    this.$store.dispatch("puxarGithub");
   }
 };
 </script>
